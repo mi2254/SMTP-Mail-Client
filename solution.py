@@ -2,7 +2,7 @@
 from socket import *
 
 
-def smtp_client(port=1025, mailserver='127.0.0.1'):
+def smtp_client(port=587, mailserver='smtp.gmail.com'):
    msg = "\r\n SMTP Mail Client"
    endmsg = "\r\n.\r\n"
 
@@ -31,8 +31,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
         print('250 reply not received from server.')
    # Send MAIL FROM command and print server response.
    # Fill in start
-   mailfromCommand = 'MAIL FROM: <mi2254@nyu.edu>\r\n.'
-   clientSocket.send(mailfromCommand)
+   mailfromCommand = 'MAIL FROM: <mi2254@nyu.edu>\r\n'
+   clientSocket.send(mailfromCommand.encode())
    recv1 = clientSocket.recv(1024).decode()
    print(recv1)
    if recv1[:3] != '250':
@@ -42,8 +42,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Send RCPT TO command and print server response.
    # Fill in start
    rcpttoCommand = 'RCPT TO: <myemail@gmail.com>\r\n'
-   clientSocket.send(rcpttoCommand)
-   recv1 = clientSocket.recv(1024)
+   clientSocket.send(rcpttoCommand.encode())
+   recv1 = clientSocket.recv(1024).decode()
    print(recv1)
    if recv1[:3] != '250':
        print('rcpt to 250 reply not received from server.')
@@ -63,7 +63,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Send message data.
    # Fill in start
-   message = raw_input('Enter Message Here: ')
+   message = input('Enter Message Here: ')
 
 
    # Fill in end
@@ -71,8 +71,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Message ends with a single period.
    # Fill in start
    mailMessageEnd = '\r\n.\r\n'
-   clientSocket.send(message + mailMessageEnd)
-   recv1 = clientSocket.recv(1024)
+   clientSocket.send((message + mailMessageEnd).encode())
+   recv1 = clientSocket.recv(1024).decode()
    print(recv1)
    if recv1[:3] != '250':
        print('end msg 250 reply not received from server.')
@@ -92,4 +92,4 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
 
 if __name__ == '__main__':
-   smtp_client(1025, '127.0.0.1')
+   smtp_client(587, 'smtp.gmail.com')
