@@ -3,7 +3,7 @@ from socket import *
 
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
-   msg = "\r\n SMTP Mail Client"
+   msg = "\r\n This is SMTP Mail Client"
    endmsg = "\r\n.\r\n"
 
    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
@@ -62,7 +62,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Send message data.
    # Fill in start
-   clientSocket.send(msg.encode())
+   clientSocket.send(msg.encode() + endmsg.encode())
 
 
    # Fill in end
@@ -70,7 +70,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Message ends with a single period.
    # Fill in start
    
-   clientSocket.send(endmsg.encode())
+   
    recv1 = clientSocket.recv(1024).decode()
    print(recv1)
    # Fill in end
